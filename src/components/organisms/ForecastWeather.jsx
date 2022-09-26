@@ -1,23 +1,23 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Image } from "../atoms/Image";
 import { Temperature } from "../atoms/Temperature";
 import { formatDate } from "../../services/formatDate";
 import Spinner from "../atoms/Spinner";
-import useFetch from "../../hooks/useFetch";
-import env from "react-dotenv";
+import { getForecastWeather } from "../../features/forecastWeather/forecastWeatherSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 function ForecastWeather({ temperatureType, setTemperatureType, location }) {
   const celsiusIcon = useRef();
   const fahrenheitIcon = useRef();
 
-  const {
-    data: dataForecast5Day,
-    loading,
-    error,
-  } = useFetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${env.API_KEY}`,
-    {}
+  const { forecastWeatherData, error, loading } = useSelector(
+    (state) => state.forecastWeather
   );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    location.lat !== 0 && dispatch(getForecastWeather(location));
+  }, [dispatch, location]);
 
   function toogleIcons(icon) {
     if (!icon.current.classList.contains("active")) {
@@ -34,8 +34,8 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
 
   //removed current day
   const today = new Date().toISOString().slice(0, 10);
-  const forecast5DayData = dataForecast5Day?.list
-    .map((item) => {
+  const forecast5DayData = forecastWeatherData.list
+    ?.map((item) => {
       return { ...item, dt_txt: item.dt_txt.slice(0, 10) };
     })
     .filter((item, index) => item.dt_txt !== today);

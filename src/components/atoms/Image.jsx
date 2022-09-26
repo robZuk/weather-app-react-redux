@@ -8,7 +8,7 @@ import Snow from "../../assets/Snow.png";
 
 function Image({ data, className }) {
   let image;
-  const id = +data?.weather[0].id;
+  const id = +data.weather?.[0].id;
   if (id <= 232) {
     image = Thunderstorm;
   } else if (id > 232 && id <= 520) {
@@ -25,7 +25,7 @@ function Image({ data, className }) {
     image = Cloud;
   } else image = HeavyCloud;
 
-  return <img src={image} alt={data?.weather[0].main} className={className} />;
+  return <img src={image} alt={data.weather?.[0].main} className={className} />;
 }
 
 export { Image };

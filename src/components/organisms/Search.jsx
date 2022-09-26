@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import useFetch from "../../hooks/useFetch";
+import React, { useState, useEffect } from "react";
 import Spinner from "../atoms/Spinner";
-import env from "react-dotenv";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getSearchedCities,
+  reset,
+} from "../../features/searchedCities/searchedCitesSlice";
 
 function Search({
   showSearchingSection,
@@ -9,21 +12,25 @@ function Search({
   setLocation,
 }) {
   const [inputValue, setInputValue] = useState(" ");
+  const [city, setCity] = useState(" ");
 
-  let {
-    data: searchedCities,
-    loading,
-    error,
-  } = useFetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${inputValue}&limit=${5}&appid=${
-      env.API_KEY
-    }`,
-    {}
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSearchedCities(city));
+  }, [dispatch, city]);
+
+  const { searchedCities, error, loading } = useSelector(
+    (state) => state.searchedCities
   );
 
-  async function search(e) {
+  const onChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  function search(e) {
     e.preventDefault();
-    setInputValue(e.target[0].value);
+    setCity(e.target[0].value);
   }
 
   return (
@@ -39,13 +46,20 @@ function Search({
       >
         <button
           className="search-section-close_button"
-          onClick={() => setShowSearchingSection(false)}
+          onClick={() => {
+            setShowSearchingSection(false);
+            setInputValue("");
+            setCity(" ");
+          }}
         >
           &#10005;
         </button>
         <form className="search-section-form" onSubmit={search}>
           <input
+            value={inputValue}
+            name="search"
             type="search"
+            onChange={onChange}
             style={{ fontFamily: "Raleway, FontAwesome" }}
             className="search-section-form-input fa"
             placeholder="&#xF002;   search location"
@@ -66,8 +80,9 @@ function Search({
                 onClick={() => {
                   setShowSearchingSection(false);
                   setLocation({ lat: city.lat, lon: city.lon });
-                  searchedCities = [];
-                  setInputValue(" ");
+                  setInputValue("");
+                  dispatch(reset());
+                  setCity(" ");
                 }}
               >
                 {`${city.name}, ${city.country}`}
