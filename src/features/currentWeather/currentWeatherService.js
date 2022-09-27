@@ -1,6 +1,5 @@
 import axios from "axios";
 import env from "react-dotenv";
-console.log(env);
 
 const getCurrentWeatherData = async (location) => {
   const response = await axios.get(
