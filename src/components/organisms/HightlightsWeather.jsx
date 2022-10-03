@@ -9,11 +9,7 @@ function HightlightsWeather() {
 
   return (
     <div className="hightlight-weather-section">
-      {error ? (
-        <div className="alert alert-danger" role="alert">
-          {error.message}
-        </div>
-      ) : loading ? (
+      {error ? null : loading ? (
         <Spinner />
       ) : (
         <>
