@@ -20,7 +20,7 @@ function Search({
     dispatch(getSearchedCities(city));
   }, [dispatch, city]);
 
-  const { searchedCities, error, loading } = useSelector(
+  const { searchedCities, error, loading, message } = useSelector(
     (state) => state.searchedCities
   );
 
@@ -69,7 +69,7 @@ function Search({
         <ul className="search-section-list">
           {error ? (
             <div className="alert alert-danger" role="alert">
-              {error.message}
+              {message}
             </div>
           ) : loading ? (
             <Spinner />

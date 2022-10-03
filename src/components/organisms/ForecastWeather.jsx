@@ -10,7 +10,7 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
   const celsiusIcon = useRef();
   const fahrenheitIcon = useRef();
 
-  const { forecastWeatherData, error, loading } = useSelector(
+  const { forecastWeatherData, error, loading, message } = useSelector(
     (state) => state.forecastWeather
   );
   const dispatch = useDispatch();
@@ -73,8 +73,16 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
         </button>
       </div>
       {error ? (
-        <div className="alert alert-danger" role="alert">
-          {error.message}
+        <div
+          className="alert alert-danger"
+          role="alert"
+          style={{
+            width: "90%",
+            position: "absolute",
+            top: "45%",
+          }}
+        >
+          {message}
         </div>
       ) : loading ? (
         <Spinner />

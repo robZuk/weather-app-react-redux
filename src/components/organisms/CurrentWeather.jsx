@@ -15,7 +15,7 @@ function CurrentWeather({
 }) {
   const { weekDay, monthDay, month } = formatDate(new Date());
 
-  const { currentWeatherData, error, loading } = useSelector(
+  const { currentWeatherData, error, loading, message } = useSelector(
     (state) => state.currentWeather
   );
 
@@ -32,8 +32,17 @@ function CurrentWeather({
         style={{ backgroundImage: `url(${background})` }}
       ></div>
       {error ? (
-        <div className="alert alert-danger" role="alert">
-          {error.message}
+        <div
+          className="alert alert-danger"
+          role="alert"
+          style={{
+            width: "90%",
+            position: "absolute",
+            top: "45%",
+            zIndex: 6,
+          }}
+        >
+          {message}
         </div>
       ) : loading ? (
         <Spinner />
