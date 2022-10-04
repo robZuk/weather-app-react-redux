@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/weather-app-react-redux/static/css/main.072aee56.css",
+    "main.css": "/weather-app-react-redux/static/css/main.b96f46a5.css",
     "main.js": "/weather-app-react-redux/static/js/main.3d364519.js",
     "static/js/787.28cb0dcd.chunk.js": "/weather-app-react-redux/static/js/787.28cb0dcd.chunk.js",
     "static/media/Clear.png": "/weather-app-react-redux/static/media/Clear.6e4f36b6f663ff2d4d6a.png",
     "static/media/LightCloud.png": "/weather-app-react-redux/static/media/LightCloud.edc43777fbbf36684278.png",
     "static/media/Cloud-background.png": "/weather-app-react-redux/static/media/Cloud-background.f88244c26c2492e3c5f1.png",
     "index.html": "/weather-app-react-redux/index.html",
-    "main.072aee56.css.map": "/weather-app-react-redux/static/css/main.072aee56.css.map",
+    "main.b96f46a5.css.map": "/weather-app-react-redux/static/css/main.b96f46a5.css.map",
     "main.3d364519.js.map": "/weather-app-react-redux/static/js/main.3d364519.js.map",
     "787.28cb0dcd.chunk.js.map": "/weather-app-react-redux/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.072aee56.css",
+    "static/css/main.b96f46a5.css",
     "static/js/main.3d364519.js"
   ]
 }
